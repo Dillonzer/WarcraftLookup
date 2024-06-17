@@ -164,3 +164,4 @@ cython_debug/
 # Testing
 .vscode/settings.json
 test/
+test_**.py
