@@ -1,4 +1,4 @@
-from interactions import Extension, slash_command, Embed, BrandColors, SlashContext, OptionType, slash_option
+from interactions import Extension, slash_command, Embed, BrandColors, SlashContext, OptionType, slash_option, AutocompleteContext
 from test_consts import Consts
 import requests
 import json
@@ -18,13 +18,15 @@ class RaiderIO(Extension):
         name="realm",
         description="Character's Realm",
         required=True,
-        opt_type=OptionType.STRING
+        opt_type=OptionType.STRING,
+        autocomplete=True
     )
     @slash_option(
         name="region",
         description="Character's Region",
         required=True,
-        opt_type=OptionType.STRING
+        opt_type=OptionType.STRING,
+        autocomplete=True
     )
     async def MythicPlusRating(self, ctx: SlashContext, name, realm, region):        
         data = self.GetRaiderIOData(name, realm, region)
@@ -40,6 +42,20 @@ class RaiderIO(Extension):
             e.set_footer(text="Powered by RaiderIO", icon_url="https://cdn.raiderio.net/images/brand/Icon_FullColor_Square.png")
 
         await ctx.send(embeds = e)
+
+    @MythicPlusRating.autocomplete("realm")
+    async def autocompleteRealm(ctx: AutocompleteContext):  
+        try:
+            choices = [
+                { "name": realm["name"], "value": realm["slug"]} for realm in REALMLISTFROMBLIZZARD if ctx.input_text.lower() in realm["name"].lower()
+            ] 
+
+            if(len(choices) > 25):
+                choices = choices[0:25]
+
+            await ctx.send(choices)
+        except:
+            pass
 
     @staticmethod
     def GetRaiderIOData(name, realm, region):
