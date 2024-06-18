@@ -1,7 +1,6 @@
 from test_consts import Consts
 import requests
 import json
-import datetime
 
 class BattleNet:
     def __init__(self):
