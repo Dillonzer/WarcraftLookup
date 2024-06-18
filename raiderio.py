@@ -1,8 +1,11 @@
-from interactions import Extension, slash_command, Embed, BrandColors, SlashContext, OptionType, slash_option, AutocompleteContext
+from interactions import Extension, slash_command, Embed, BrandColors, SlashContext, OptionType, slash_option, AutocompleteContext, SlashCommandChoice
 from test_consts import Consts
 import requests
 import json
 from error import Error
+from battlenet import BattleNet
+
+_battleNet = BattleNet()
 
 class RaiderIO(Extension):
     guild_ids = [642081591371497472]
@@ -15,39 +18,48 @@ class RaiderIO(Extension):
         opt_type=OptionType.STRING
     )
     @slash_option(
+        name="region",
+        description="Character's Region",
+        required=True,
+        opt_type=OptionType.STRING,
+        choices=[
+        SlashCommandChoice(name="United States", value=Consts.REGION_US),
+        SlashCommandChoice(name="Europe", value=Consts.REGION_EU)
+        ]
+    )
+    @slash_option(
         name="realm",
         description="Character's Realm",
         required=True,
         opt_type=OptionType.STRING,
         autocomplete=True
     )
-    @slash_option(
-        name="region",
-        description="Character's Region",
-        required=True,
-        opt_type=OptionType.STRING,
-        autocomplete=True
-    )
-    async def MythicPlusRating(self, ctx: SlashContext, name, realm, region):        
+    async def MythicPlusRating(self, ctx: SlashContext, name, region, realm):        
         data = self.GetRaiderIOData(name, realm, region)
-        if(data is None):
+        if(data.name is None):
             e = Error.GetErrorEmbed()
         else:    
             e = Embed()
             e.color = BrandColors.YELLOW
             seasonName = self.GetNameForSlug(data["mythic_plus_scores_by_season"][0]["season"])
             e.title = f"Mythic+ {seasonName}"
-            e.description = f"DPS: {data["mythic_plus_scores_by_season"][0]["scores"]["dps"]}\nHealer: {data["mythic_plus_scores_by_season"][0]["scores"]["healer"]}\nTank: {data["mythic_plus_scores_by_season"][0]["scores"]["tank"]}"
+            e.author = f"{data.name}"
+            e.description = f"{data.race} - {data._class}"
+            e.add_field(name="DPS", value=data["mythic_plus_scores_by_season"][0]["scores"]["dps"], inline=True)
+            e.add_field(name="Healer", value=data["mythic_plus_scores_by_season"][0]["scores"]["healer"], inline=True)
+            e.add_field(name="Tank", value=data["mythic_plus_scores_by_season"][0]["scores"]["tank"], inline=True)
             e.set_thumbnail(url=data["thumbnail_url"])
             e.set_footer(text="Powered by RaiderIO", icon_url="https://cdn.raiderio.net/images/brand/Icon_FullColor_Square.png")
 
         await ctx.send(embeds = e)
 
     @MythicPlusRating.autocomplete("realm")
-    async def autocompleteRealm(ctx: AutocompleteContext):  
+    async def autocompleteRealm(self, ctx: AutocompleteContext):  
         try:
+            region = ctx.kwargs.get("region")
+            realmList = _battleNet.GetRealms(region) 
             choices = [
-                { "name": realm["name"], "value": realm["slug"]} for realm in REALMLISTFROMBLIZZARD if ctx.input_text.lower() in realm["name"].lower()
+                SlashCommandChoice(name = realm["name"], value = realm["slug"]) for realm in realmList["realms"] if ctx.input_text.lower() in realm["name"].lower()
             ] 
 
             if(len(choices) > 25):

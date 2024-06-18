@@ -1,7 +1,7 @@
 from interactions import Client
 from test_consts import Consts
-import aiohttp
-import asyncio
+#import aiohttp
+#import asyncio
 
 bot = Client(token=Consts.TOKEN)
 bot.load_extension("information")
