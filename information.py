@@ -11,7 +11,8 @@ class BotInformation(Extension):
         e.set_author(name="Warcraft Lookup")#,icon_url=Consts.LOGO_ADDRESS)
         #e.set_thumbnail(url=Consts.POKEMON_CARD_LOGO_ADDRESS)
         
-        commands = "• `/mythic_plus_rating <characterName> <region> <realm>`: Displays your current season mythic plus rating!\n"
+        commands = "• `/mythic_plus_rating <characterName> <region> <realm>`: Displays current season mythic plus rating!\n"
+        commands += "• `/raid_progress <characterName> <region> <realm>`: Displays current expansion raid progression for a character!\n"
         
         e.add_field(name="Commands", value=commands, inline=False)
         e.set_footer(text="Created by Dillonzer")
