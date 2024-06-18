@@ -1,4 +1,4 @@
-from interactions import Extension, slash_command, Embed, BrandColors, SlashContext, OptionType, slash_option, AutocompleteContext, SlashCommandChoice
+from interactions import Extension, slash_command, Embed, BrandColors, SlashContext, OptionType, slash_option, AutocompleteContext, SlashCommandChoice, Button, ButtonStyle
 from test_consts import Consts
 import requests
 import json
@@ -39,6 +39,11 @@ class RaiderIO(Extension):
         if(data is None):
             e = Error.GetErrorEmbed()
         else:    
+            profileButton = Button(
+                style=ButtonStyle.URL,
+                label=f"{data["name"]}'s Raider.IO Page",
+                url=data["profile_url"],
+            )
             e = Embed()
             e.color = BrandColors.YELLOW
             seasonName = self.GetNameForSlug(data["mythic_plus_scores_by_season"][0]["season"])
@@ -49,9 +54,9 @@ class RaiderIO(Extension):
             e.add_field(name="Healer", value=data["mythic_plus_scores_by_season"][0]["scores"]["healer"], inline=True)
             e.add_field(name="Tank", value=data["mythic_plus_scores_by_season"][0]["scores"]["tank"], inline=True)
             e.set_thumbnail(url=data["thumbnail_url"])
-            e.set_footer(text="Powered by RaiderIO", icon_url="https://cdn.raiderio.net/images/brand/Icon_FullColor_Square.png")
+            e.set_footer(text="Powered by Raider.IO", icon_url="https://cdn.raiderio.net/images/brand/Icon_FullColor_Square.png")
 
-        await ctx.send(embeds = e)
+        await ctx.send(embeds = e, components=profileButton)
 
     @MythicPlusRating.autocomplete("realm")
     async def autocompleteRealm(self, ctx: AutocompleteContext):  
