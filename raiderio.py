@@ -36,15 +36,15 @@ class RaiderIO(Extension):
     )
     async def MythicPlusRating(self, ctx: SlashContext, name, region, realm):        
         data = self.GetRaiderIOData(name, realm, region)
-        if(data.name is None):
+        if(data["name"] is None):
             e = Error.GetErrorEmbed()
         else:    
             e = Embed()
             e.color = BrandColors.YELLOW
             seasonName = self.GetNameForSlug(data["mythic_plus_scores_by_season"][0]["season"])
             e.title = f"Mythic+ {seasonName}"
-            e.author = f"{data.name}"
-            e.description = f"{data.race} - {data._class}"
+            e.author = f"{data["name"]}"
+            e.description = f"{data["race"]} - {data["class"]}"
             e.add_field(name="DPS", value=data["mythic_plus_scores_by_season"][0]["scores"]["dps"], inline=True)
             e.add_field(name="Healer", value=data["mythic_plus_scores_by_season"][0]["scores"]["healer"], inline=True)
             e.add_field(name="Tank", value=data["mythic_plus_scores_by_season"][0]["scores"]["tank"], inline=True)
