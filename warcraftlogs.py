@@ -143,6 +143,7 @@ class WarcraftLogs(Extension):
         ]
     )
     async def WarcraftLogRetrieval(self, ctx: SlashContext, name, region, realm, encounter, metric): 
+        await ctx.defer()
         data = self.GetCharacterData(name, realm, region, encounter, metric)
         charInfo = RaiderIO_Helper.GetRaiderIOData(name, realm, region)
         if(data is None or charInfo is None):

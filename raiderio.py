@@ -34,6 +34,7 @@ class RaiderIO(Extension):
         autocomplete=True
     )
     async def MythicPlusRating(self, ctx: SlashContext, name, region, realm):      
+        await ctx.defer()
         data = RaiderIO_Helper.GetRaiderIOData(name, realm, region)
         if(data is None):
             e = Error.GetErrorEmbed()
@@ -82,6 +83,7 @@ class RaiderIO(Extension):
         autocomplete=True
     )
     async def RaidProgression(self, ctx: SlashContext, name, region, realm):        
+        await ctx.defer()
         data = RaiderIO_Helper.GetRaiderIOData(name, realm, region)
         if(data is None):
             e = Error.GetErrorEmbed()
