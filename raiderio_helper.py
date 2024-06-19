@@ -76,13 +76,13 @@ class RaiderIO_Helper:
     @staticmethod
     def GetNameForSlug_MythicPlus(name):
         staticData = RaiderIO_Helper.GetStaticSeasonData()        
-        for data in staticData["seasons"]:
-            if(name == data["slug"]):
-                return data["name"]
+        for data in staticData['seasons']:
+            if(name == data['slug']):
+                return data['name']
     
     @staticmethod
     def GetNameForSlug_Raid(name):
         staticData = RaiderIO_Helper.GetStaticRaidData()        
-        for data in staticData["raids"]:
-            if(name == data["slug"]):
-                return data["name"]
+        for data in staticData['raids']:
+            if(name == data['slug']):
+                return data['name']

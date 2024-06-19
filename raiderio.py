@@ -42,19 +42,19 @@ class RaiderIO(Extension):
         else:    
             profileButton = Button(
                 style=ButtonStyle.URL,
-                label=f"{data["name"]}'s Raider.IO Page",
-                url=data["profile_url"],
+                label=f"{data['name']}'s Raider.IO Page",
+                url=data['profile_url'],
             )
             e = Embed()
             e.color = BrandColors.YELLOW
-            seasonName = RaiderIO_Helper.GetNameForSlug_MythicPlus(data["mythic_plus_scores_by_season"][0]["season"])
-            e.title = f"{data["name"]}"
+            seasonName = RaiderIO_Helper.GetNameForSlug_MythicPlus(data['mythic_plus_scores_by_season'][0]['season'])
+            e.title = f"{data['name']}"
             e.set_author(name=f"Mythic+ {seasonName}")
-            e.description = f"{data["race"]} {data["class"]}"
-            e.add_field(name="DPS", value=data["mythic_plus_scores_by_season"][0]["scores"]["dps"], inline=True)
-            e.add_field(name="Healer", value=data["mythic_plus_scores_by_season"][0]["scores"]["healer"], inline=True)
-            e.add_field(name="Tank", value=data["mythic_plus_scores_by_season"][0]["scores"]["tank"], inline=True)
-            e.set_thumbnail(url=data["thumbnail_url"])
+            e.description = f"{data['race']} {data['class']}"
+            e.add_field(name="DPS", value=data['mythic_plus_scores_by_season'][0]['scores']['dps'], inline=True)
+            e.add_field(name="Healer", value=data['mythic_plus_scores_by_season'][0]['scores']['healer'], inline=True)
+            e.add_field(name="Tank", value=data['mythic_plus_scores_by_season'][0]['scores']['tank'], inline=True)
+            e.set_thumbnail(url=data['thumbnail_url'])
             e.set_footer(text="Powered by Raider.IO", icon_url="https://cdn.raiderio.net/images/brand/Icon_FullColor_Square.png")
             await ctx.send(embeds = e, components=profileButton)
 
@@ -91,18 +91,18 @@ class RaiderIO(Extension):
         else:    
             profileButton = Button(
                 style=ButtonStyle.URL,
-                label=f"{data["name"]}'s Raider.IO Page",
-                url=data["profile_url"],
+                label=f"{data['name']}'s Raider.IO Page",
+                url=data['profile_url'],
             )
             e = Embed()
             e.color = BrandColors.YELLOW
-            e.title = f"{data["name"]}"
+            e.title = f"{data['name']}"
             e.set_author(name=f"Raid Progression")
-            e.description = f"{data["race"]} {data["class"]}"
-            for key, value in data["raid_progression"].items():
+            e.description = f"{data['race']} {data['class']}"
+            for key, value in data['raid_progression'].items():
                 raidName = RaiderIO_Helper.GetNameForSlug_Raid(key)
-                e.add_field(name=raidName, value=f"{value["normal_bosses_killed"]} N\n{value["heroic_bosses_killed"]} H\n{value["mythic_bosses_killed"]} M", inline=True)
-            e.set_thumbnail(url=data["thumbnail_url"])
+                e.add_field(name=raidName, value=f"{value['normal_bosses_killed']} N\n{value['heroic_bosses_killed']} H\n{value['mythic_bosses_killed']} M", inline=True)
+            e.set_thumbnail(url=data['thumbnail_url'])
             e.set_footer(text="Powered by Raider.IO", icon_url="https://cdn.raiderio.net/images/brand/Icon_FullColor_Square.png")
             await ctx.send(embeds = e, components=profileButton)
        
@@ -139,17 +139,17 @@ class RaiderIO(Extension):
         else:    
             profileButton = Button(
                 style=ButtonStyle.URL,
-                label=f"{data["name"]}'s Raider.IO Page",
-                url=data["profile_url"],
+                label=f"{data['name']}'s Raider.IO Page",
+                url=data['profile_url'],
             )
             e = Embed()
             e.color = BrandColors.YELLOW
-            e.title = f"{data["name"]}"
+            e.title = f"{data['name']}"
             e.set_author(name=f"Raid Progression")
-            e.description = f"{data["realm"]}"
-            for key, value in data["raid_progression"].items():
+            e.description = f"{data['realm']}"
+            for key, value in data['raid_progression'].items():
                 raidName = RaiderIO_Helper.GetNameForSlug_Raid(key)
-                e.add_field(name=raidName, value=f"{value["normal_bosses_killed"]} N\n{value["heroic_bosses_killed"]} H\n{value["mythic_bosses_killed"]} M", inline=True)
+                e.add_field(name=raidName, value=f"{value['normal_bosses_killed']} N\n{value['heroic_bosses_killed']} H\n{value['mythic_bosses_killed']} M", inline=True)
             e.set_thumbnail(url="https://wow.zamimg.com/images/wow/icons/large/inv_shirt_guildtabard_01.jpg")
             e.set_footer(text="Powered by Raider.IO", icon_url="https://cdn.raiderio.net/images/brand/Icon_FullColor_Square.png")
             await ctx.send(embeds = e, components=profileButton)
@@ -162,7 +162,7 @@ class RaiderIO(Extension):
             region = ctx.kwargs.get("region")
             realmList = _battleNet.GetRealms(region) 
             choices = [
-                SlashCommandChoice(name = realm["name"], value = realm["slug"]) for realm in realmList["realms"] if ctx.input_text.lower() in realm["name"].lower()
+                SlashCommandChoice(name = realm['name'], value = realm['slug']) for realm in realmList['realms'] if ctx.input_text.lower() in realm['name'].lower()
             ] 
 
             if(len(choices) > 25):

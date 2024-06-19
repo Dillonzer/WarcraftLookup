@@ -80,7 +80,7 @@ class WarcraftLogs(Extension):
 
             response = requests.request("POST", url, headers=headers, data=payload)
             jsonObject = json.loads(response.text.encode('utf8'))
-            return jsonObject["data"]["gameData"]["class"]["name"]
+            return jsonObject['data']['gameData']['class']['name']
         except Exception as e:
             print(f"Failed to hit WarcraftLogs Class Name due to {e}.")
             self.Authentication()
@@ -88,9 +88,9 @@ class WarcraftLogs(Extension):
         
     def GetEncounterName(self, encounterId):       
         raidZones = self.GetRaidZones() 
-        for raid in raidZones["data"]["worldData"]["zones"]:
-            if(str(encounterId) == str(raid["id"])):
-                return raid["name"]
+        for raid in raidZones['data']['worldData']['zones']:
+            if(str(encounterId) == str(raid['id'])):
+                return raid['name']
     
     def GetDifficulty(diffId):
         switch={
@@ -152,21 +152,21 @@ class WarcraftLogs(Extension):
         else:    
             profileButton = Button(
                 style=ButtonStyle.URL,
-                label=f"{charInfo["name"]}'s WarcraftLog's Page",
-                url=f"https://www.warcraftlogs.com/character/id/{data["data"]["characterData"]["character"]["id"]}",
+                label=f"{charInfo['name']}'s WarcraftLog's Page",
+                url=f"https://www.warcraftlogs.com/character/id/{data['data']['characterData']['character']['id']}",
             )
             e = Embed()
             e.color = BrandColors.BLURPLE
-            e.title = f"{data["data"]["characterData"]["character"]["name"]}"
+            e.title = f"{data['data']['characterData']['character']['name']}"
             encounterName = self.GetEncounterName(encounter)
-            e.set_author(name=f"Logs for {encounterName} - {WarcraftLogs.GetDifficulty(data["data"]["characterData"]["character"]["zoneRankings"]["difficulty"])}")
-            e.description = f"{charInfo["race"]} {charInfo["class"]}"
-            for rankings in data["data"]["characterData"]["character"]["zoneRankings"]["rankings"]:
-                if(rankings["rankPercent"] is not None):
-                    e.add_field(name=rankings["encounter"]["name"], value=round(rankings["rankPercent"],2), inline=True)
+            e.set_author(name=f"Logs for {encounterName} - {WarcraftLogs.GetDifficulty(data['data']['characterData']['character']['zoneRankings']['difficulty'])}")
+            e.description = f"{charInfo['race']} {charInfo['class']}"
+            for rankings in data['data']['characterData']['character']['zoneRankings']['rankings']:
+                if(rankings['rankPercent'] is not None):
+                    e.add_field(name=rankings['encounter']['name'], value=round(rankings['rankPercent'],2), inline=True)
                 else:            
-                    e.add_field(name=rankings["encounter"]["name"], value="No Kills Logged", inline=True)
-            e.set_thumbnail(url=charInfo["thumbnail_url"])
+                    e.add_field(name=rankings['encounter']['name'], value="No Kills Logged", inline=True)
+            e.set_thumbnail(url=charInfo['thumbnail_url'])
             e.set_footer(text="Powered by WarcraftLogs", icon_url="https://assets.rpglogs.com/img/warcraft/favicon.png?v=2")
             await ctx.send(embeds = e, components=profileButton)
         
@@ -175,7 +175,7 @@ class WarcraftLogs(Extension):
         try:
             encounters = self.GetRaidZones()
             choices = [
-                SlashCommandChoice(name = raid["name"], value = raid["id"]) for raid in encounters["data"]["worldData"]["zones"] if ctx.input_text.lower() in raid["name"].lower()
+                SlashCommandChoice(name = raid['name'], value = raid['id']) for raid in encounters['data']['worldData']['zones'] if ctx.input_text.lower() in raid['name'].lower()
             ] 
 
             if(len(choices) > 25):
@@ -191,7 +191,7 @@ class WarcraftLogs(Extension):
             region = ctx.kwargs.get("region")
             realmList = _battleNet.GetRealms(region) 
             choices = [
-                SlashCommandChoice(name = realm["name"], value = realm["slug"]) for realm in realmList["realms"] if ctx.input_text.lower() in realm["name"].lower()
+                SlashCommandChoice(name = realm['name'], value = realm['slug']) for realm in realmList['realms'] if ctx.input_text.lower() in realm['name'].lower()
             ] 
 
             if(len(choices) > 25):
