@@ -1,3 +1,3 @@
 aiohttp
 requests
-discord-py-interactions
+discord-py-interactions==5.6.0
