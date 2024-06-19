@@ -1,5 +1,4 @@
 from interactions import Embed, BrandColors
-from test_consts import Consts
 
 class Error():
     @staticmethod

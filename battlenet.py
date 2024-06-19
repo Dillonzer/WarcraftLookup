@@ -1,4 +1,4 @@
-from test_consts import Consts
+from consts import Consts
 import requests
 import json
 

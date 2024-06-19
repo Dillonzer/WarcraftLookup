@@ -1,3 +1,2 @@
-aiohttp
 requests
 discord-py-interactions
