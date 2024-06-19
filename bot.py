@@ -1,5 +1,6 @@
 from interactions import Client
 from consts import Consts
+import aiohttp
 
 bot = Client(token=Consts.TOKEN)
 bot.load_extension("information")
