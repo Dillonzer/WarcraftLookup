@@ -7,6 +7,7 @@ class Consts:
     WARCRAFTLOGS_EXPANSION_ID = 5 #Dragonflight
     BATTLENET_BASICAUTH = environ.get('BATTLENET_BASICAUTH')
     WARCRAFTLOGS_BASICAUTH = environ.get('WARCRAFTLOGS_BASICAUTH')
+    TOPGG_AUTHTOKEN = environ.get('TOPGG_AUTHTOKEN')
     REGION_US = 'us'
     REGION_EU = 'eu'
     MYTHIC = 5
