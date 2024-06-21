@@ -1,5 +1,5 @@
 # WarcraftLookup
-![Language](https://img.shields.io/badge/Discord_Library-discord_py_interactions-blue) ![Hosted](https://img.shields.io/badge/Hosted_On-Railways-black) ![Hosted](https://img.shields.io/badge/Server_Count-Coming_Soon-yellow) ![GitHub License](https://img.shields.io/github/license/Dillonzer/WarcraftLookup) ![GitHub branch status](https://img.shields.io/github/checks-status/dillonzer/warcraftlookup/main)
+![Language](https://img.shields.io/badge/Discord_Library-discord_py_interactions-blue) ![Hosted](https://img.shields.io/badge/Hosted_On-Railways-black) [![Discord Bots](https://top.gg/api/widget/status/1252000060867215490.svg)](https://top.gg/bot/1252000060867215490) [![Discord Bots](https://top.gg/api/widget/servers/1252000060867215490.svg)](https://top.gg/bot/1252000060867215490) ![GitHub License](https://img.shields.io/github/license/Dillonzer/WarcraftLookup) ![GitHub branch status](https://img.shields.io/github/checks-status/dillonzer/warcraftlookup/main)
 
 A Discord bot for looking up info on multiple World of Warcraft integrations.
 
