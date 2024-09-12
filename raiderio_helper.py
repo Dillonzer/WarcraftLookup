@@ -79,10 +79,12 @@ class RaiderIO_Helper:
         for data in staticData['seasons']:
             if(name == data['slug']):
                 return data['name']
+        return "No Current Season"
     
     @staticmethod
     def GetNameForSlug_Raid(name):
         staticData = RaiderIO_Helper.GetStaticRaidData()        
         for data in staticData['raids']:
             if(name == data['slug']):
-                return data['name']
+                return data['name']        
+        return "No Current Season"

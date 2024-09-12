@@ -3,8 +3,8 @@ from os import environ
 class Consts:    
     BOT_ID = environ.get('BOT_ID')
     TOKEN = environ.get('TOKEN') 
-    RAIDERIO_EXPANSION_ID = 9 #Dragonflight
-    WARCRAFTLOGS_EXPANSION_ID = 5 #Dragonflight
+    RAIDERIO_EXPANSION_ID = 10 #TWW
+    WARCRAFTLOGS_EXPANSION_ID = 6 #TWW
     BATTLENET_BASICAUTH = environ.get('BATTLENET_BASICAUTH')
     WARCRAFTLOGS_BASICAUTH = environ.get('WARCRAFTLOGS_BASICAUTH')
     REGION_US = 'us'
